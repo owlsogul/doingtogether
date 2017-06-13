@@ -38,7 +38,7 @@ public class JSONUtil {
 					return new LinkedList<String>();
 				}
 			};
-			Object jObj = (JSONObject) parser.parse(jsonStr, lhmContianerFactory);
+			Object jObj = parser.parse(jsonStr, lhmContianerFactory);
 			return (LinkedHashMap<String, String>) jObj;
 		} catch (ParseException e) {
 			e.printStackTrace();

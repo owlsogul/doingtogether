@@ -11,7 +11,7 @@ public class ServerBridgeTest {
 	/** TEST를 위한 main 함수*/
 	public static void main(String[] data){
 		try {
-			ServerBridge sb = new ServerBridge("165.194.17.32", 8765);
+			ServerBridge sb = new ServerBridge(null, "165.194.17.32", 8765);
 			LinkedHashMap<String, String> map = new LinkedHashMap<>();
 			map.put("DATATYPE", "REGISTER");
 			map.put("ID", "REGISTER");
