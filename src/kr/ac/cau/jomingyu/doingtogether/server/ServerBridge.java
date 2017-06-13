@@ -41,7 +41,8 @@ public class ServerBridge implements Runnable{
 			System.out.println("SocketIO: Read " + ret);
 			return ret;
 		} catch (IOException e) {
-			
+			System.out.println("1. " + e.getCause());
+			System.out.println("2. " + e.getMessage()); // Connection reset
 			e.printStackTrace();
 			return null;
 		}

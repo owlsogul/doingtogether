@@ -1,7 +1,11 @@
 package kr.ac.cau.jomingyu.doingtogether.ui.page;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -19,6 +23,7 @@ public class LoginPage extends Page{
 	public JLabel pwLabel;
 	public JPasswordField pwField;
 	public JButton loginButton;
+	public JButton registerButton;
 	
 	public LoginPageController controller;
 	
@@ -36,14 +41,18 @@ public class LoginPage extends Page{
 		pwPanel.add(pwLabel);
 		pwPanel.add(pwField);
 		
-		loginButton = new JButton("Login");
+		loginButton = new JButton("Sign In");
 		loginButton.addActionListener(controller);
+		
+		registerButton = new JButton("Sign Up");
+		registerButton.addActionListener(controller);
 		
 		JPanel loginPanel = new JPanel();
 		loginPanel.setLayout(new BoxLayout(loginPanel, BoxLayout.Y_AXIS));
 		loginPanel.add(idPanel);
 		loginPanel.add(pwPanel);
 		loginPanel.add(loginButton);
+		loginPanel.add(registerButton);
 		
 		this.add(loginPanel);
 	}
@@ -55,6 +64,27 @@ public class LoginPage extends Page{
 		this.controller = (LoginPageController) pageController;
 	}
 	
+	private RegisterFrame regsiterFrame;
+	public void showRegisterFrame(){
+		regsiterFrame = new RegisterFrame(controller);
+	}
 	
+}
 
+@SuppressWarnings("serial")
+class RegisterFrame extends JFrame implements ActionListener{
+
+	
+	public RegisterFrame(LoginPageController controller) {
+		super("Register");
+		
+		JPanel contentPanel = new JPanel();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

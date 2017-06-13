@@ -3,6 +3,9 @@ package kr.ac.cau.jomingyu.doingtogether.ui.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import kr.ac.cau.jomingyu.doingtogether.ui.MainFrame;
 import kr.ac.cau.jomingyu.doingtogether.ui.page.LoginPage;
 import kr.ac.cau.jomingyu.doingtogether.ui.page.Page;
@@ -43,14 +46,21 @@ public class LoginPageController extends PageController implements ActionListene
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Log.info(this.getClass(), "user press login button");
-		if (page.idField.getText().length() >= 4 && page.pwField.getPassword() != null && page.pwField.getPassword().length >= 4){
+		if (e.getSource() == page.loginButton){
+			Log.info(this.getClass(), "user press login button");
+			if (page.idField.getText().length() >= 4 && page.pwField.getPassword() != null && page.pwField.getPassword().length >= 4){
 
-			mainFrame.uiBridge.loadDataFromLocal();
-			mainFrame.uiBridge.requestLogin();
+				mainFrame.uiBridge.loadDataFromLocal();
+				mainFrame.uiBridge.requestLogin();
+			}
+			else {
+				MsgBox.warning("LACK OF CHARACTER!");
+			}
 		}
-		else {
-			MsgBox.warning("LACK OF CHARACTER!");
+		else{
+			Log.info(this.getClass(), "user press register button");
 		}
+		
 	}
 }
+
