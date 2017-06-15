@@ -13,12 +13,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
-import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import kr.ac.cau.jomingyu.doingtogether.todo.ToDo;
 import kr.ac.cau.jomingyu.doingtogether.ui.MainFrame;
+import kr.ac.cau.jomingyu.doingtogether.ui.PlaceHolderTextField;
 import kr.ac.cau.jomingyu.doingtogether.ui.ToDoCell;
 import kr.ac.cau.jomingyu.doingtogether.ui.page.HomePage;
 import kr.ac.cau.jomingyu.doingtogether.ui.page.Page;
@@ -73,7 +73,6 @@ public class HomePageController extends PageController implements ActionListener
 			}
 			else if (button.getName().equalsIgnoreCase("save")){
 				page.mainFrame.uiBridge.saveDataToLocal();
-				
 			}
 		}
 	}
@@ -103,7 +102,7 @@ class EditFrame extends JFrame implements ActionListener, ChangeListener{
 		super("Edit ToDo");
 		this.con = con;
 		this.todo = todo;
-		this.setSize(MainFrame.FRAME_WIDTH, MainFrame.FRAME_HEIGHT);
+		this.setSize(MainFrame.FRAME_WIDTH, MainFrame.FRAME_HEIGHT/2);
 		this.setVisible(true);
 	}
 	
@@ -115,18 +114,18 @@ class EditFrame extends JFrame implements ActionListener, ChangeListener{
 	JLabel peopleLabel;
 	JLabel memoLabel;
 	
-	JTextField titleField;
+	PlaceHolderTextField titleField;
 	JSlider prioritySlider;
 	JLabel scoreLabel;
 	
-	JTextField yearField;
-	JTextField monField;
-	JTextField dayField;
-	JTextField hourField;
-	JTextField minField;
+	PlaceHolderTextField yearField;
+	PlaceHolderTextField monField;
+	PlaceHolderTextField dayField;
+	PlaceHolderTextField hourField;
+	PlaceHolderTextField minField;
 	
-	JTextField peopleField;
-	JTextField memoField;
+	PlaceHolderTextField peopleField;
+	PlaceHolderTextField memoField;
 	public void init(){
 		Container con = this.getContentPane();
 		GridLayout f = new GridLayout(12,1);
@@ -148,7 +147,7 @@ class EditFrame extends JFrame implements ActionListener, ChangeListener{
 		peopleLabel.setHorizontalAlignment(JLabel.CENTER);
 		memoLabel.setHorizontalAlignment(JLabel.CENTER);
 		
-		titleField = new JTextField("Title");
+		titleField = new PlaceHolderTextField("Title");
 		prioritySlider = new JSlider(JSlider.HORIZONTAL, 0, 10, 5);
 		prioritySlider.addChangeListener(this);
 		scoreLabel = new JLabel(String.valueOf(prioritySlider.getValue()));
@@ -157,11 +156,11 @@ class EditFrame extends JFrame implements ActionListener, ChangeListener{
 		g.setVgap(1);
 		g.setHgap(1);
 		duePanel.setLayout(g);
-		yearField = new JTextField("YYYY");
-		monField = new JTextField("MM");
-		dayField = new JTextField("DD");
-		hourField = new JTextField("HH");
-		minField = new JTextField("MM");
+		yearField = new PlaceHolderTextField("YYYY");
+		monField = new PlaceHolderTextField("MM");
+		dayField = new PlaceHolderTextField("DD");
+		hourField = new PlaceHolderTextField("HH");
+		minField = new PlaceHolderTextField("MM");
 		duePanel.add(yearField);
 		duePanel.add(new JLabel("-"));
 		duePanel.add(monField);
@@ -171,8 +170,8 @@ class EditFrame extends JFrame implements ActionListener, ChangeListener{
 		duePanel.add(hourField);
 		duePanel.add(new JLabel("-"));
 		duePanel.add(minField);
-		peopleField = new JTextField("People");
-		memoField = new JTextField("memo");
+		peopleField = new PlaceHolderTextField(", ·Î ±¸ºÐ");
+		memoField = new PlaceHolderTextField("memo");
 		
 		if (todo != null){
 			addButton.setText("EDIT");

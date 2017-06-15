@@ -14,6 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import kr.ac.cau.jomingyu.doingtogether.ui.MainFrame;
+import kr.ac.cau.jomingyu.doingtogether.ui.PlaceHolderTextField;
 import kr.ac.cau.jomingyu.doingtogether.ui.controller.LoginPageController;
 import kr.ac.cau.jomingyu.doingtogether.utility.MsgBox;
 
@@ -22,7 +23,7 @@ public class LoginPage extends Page{
 	private static final long serialVersionUID = 1L;
 
 	public JLabel idLabel;
-	public JTextField idField;
+	public PlaceHolderTextField idField;
 	public JLabel pwLabel;
 	public JPasswordField pwField;
 	public JButton loginButton;
@@ -34,7 +35,7 @@ public class LoginPage extends Page{
 		super(mainFrame, null, null);
 		JPanel idPanel = new JPanel();
 		idLabel = new JLabel("아이디     : ");
-		idField = new JTextField(20);
+		idField = new PlaceHolderTextField(20, "ID를 입력하세요");
 		idPanel.add(idLabel);
 		idPanel.add(idField);
 		
