@@ -23,10 +23,10 @@ public class PageManager {
 	
 	public void registerPages(){
 		
-		HomePage hPage = new HomePage(mainFrame, "Home", mainFrame.resourceManager.getIcon(ResourceManager.TAB_ICON_HOME));
+		HomePage hPage = new HomePage(mainFrame, "Home", mainFrame.resourceManager.getIcon(ResourceManager.ICON_TAB_HOME));
 		pageList.add(hPage);
 		
-		TimeLinePage tPage = new TimeLinePage(mainFrame, "Timeline", mainFrame.resourceManager.getIcon(ResourceManager.TAB_ICON_TIMELINE));
+		TimeLinePage tPage = new TimeLinePage(mainFrame, "Timeline", mainFrame.resourceManager.getIcon(ResourceManager.ICON_TAB_TIMELINE));
 		pageList.add(tPage);
 		
 	}

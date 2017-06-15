@@ -6,8 +6,13 @@ import javax.swing.ImageIcon;
 
 public class ResourceManager {
 	
-	public static final String TAB_ICON_HOME = "home.png";
-	public static final String TAB_ICON_TIMELINE = "timeline.png";
+	public static final String 
+		ICON_TAB_TIMELINE   = "timeline.png",
+		ICON_TAB_HOME       = "home.png",
+		ICON_CELL_DELETE    = "cell_delete.png",
+		ICON_CELL_EDIT      = "cell_edit.png",
+		ICON_CELL_SHARE     = "cell_share.png"
+		;
 	
 	private IconManager iconManager;
 	
@@ -40,19 +45,39 @@ class IconManager {
 		iconMap.clear();
 		try {
 			// home icon
-			ImageIcon icon = getIconFromResouce(ResourceManager.TAB_ICON_HOME);
+			ImageIcon icon = getIconFromResouce(ResourceManager.ICON_TAB_HOME);
 			if (icon == null){
 				return false;
 			}
-			iconMap.put(ResourceManager.TAB_ICON_HOME, icon);
+			iconMap.put(ResourceManager.ICON_TAB_HOME, icon);
 			
 			// timeline icon
-			icon = getIconFromResouce(ResourceManager.TAB_ICON_TIMELINE);
+			icon = getIconFromResouce(ResourceManager.ICON_TAB_TIMELINE);
 			if (icon == null){
 				return false;
 			}
-			iconMap.put(ResourceManager.TAB_ICON_TIMELINE, icon);
+			iconMap.put(ResourceManager.ICON_TAB_TIMELINE, icon);
 			
+			// cell delete icon
+			icon = getIconFromResouce(ResourceManager.ICON_CELL_DELETE);
+			if (icon == null){
+				return false;
+			}
+			iconMap.put(ResourceManager.ICON_CELL_DELETE, icon);
+			
+			// cell edit icon
+			icon = getIconFromResouce(ResourceManager.ICON_CELL_EDIT);
+			if (icon == null){
+				return false;
+			}
+			iconMap.put(ResourceManager.ICON_CELL_EDIT, icon);
+			
+			// cell share icon
+			icon = getIconFromResouce(ResourceManager.ICON_CELL_SHARE);
+			if (icon == null){
+				return false;
+			}
+			iconMap.put(ResourceManager.ICON_CELL_SHARE, icon);
 		}
 		catch(Exception e){
 			e.printStackTrace();

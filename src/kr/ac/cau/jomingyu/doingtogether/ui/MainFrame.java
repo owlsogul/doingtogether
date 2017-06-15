@@ -10,7 +10,7 @@ import kr.ac.cau.jomingyu.doingtogether.ui.page.Page;
 public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	public static final int FRAME_WIDTH = 750/4 + 750/6;
+	public static final int FRAME_WIDTH = 750/4 + 750/6 - 12;
 	public static final int FRAME_HEIGHT = 1334/4 + 1334/6;
 	
 	public UIBridge uiBridge; 
@@ -45,7 +45,7 @@ public class MainFrame extends JFrame {
 		currentPage = new LoginPage(this);
 		
 		this.setTitle("Doing Together");
-		this.setSize(FRAME_WIDTH + 16, FRAME_HEIGHT + 39);
+		this.setSize(FRAME_WIDTH + 16 + 12/*스크롤바 크기*/, FRAME_HEIGHT + 39);
 		this.setLayout(new BorderLayout());
 		
 		this.getContentPane().add(currentPage, BorderLayout.CENTER);
@@ -56,7 +56,7 @@ public class MainFrame extends JFrame {
 	}
 	
 	public void changePage(Page page){
-		// Unshow Event
+		// Unshow Event	
 		currentPage.getController().onUnshow();
 		this.getContentPane().remove(currentPage);
 		currentPage = page;

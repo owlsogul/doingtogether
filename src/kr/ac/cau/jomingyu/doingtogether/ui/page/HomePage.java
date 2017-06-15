@@ -44,7 +44,7 @@ public class HomePage extends Page{
 
 		cellScroller = new JScrollPane();
 		cellScroller.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		cellScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		cellScroller.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
 		cellPart = new JPanel();
 		BoxLayout boxLayout = new BoxLayout(cellPart, BoxLayout.Y_AXIS);

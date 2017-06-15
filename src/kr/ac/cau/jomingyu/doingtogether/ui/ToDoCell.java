@@ -1,6 +1,7 @@
 package kr.ac.cau.jomingyu.doingtogether.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -30,6 +31,7 @@ public class ToDoCell extends JPanel implements ActionListener{
 	JButton moreButton;
 	JButton editButton;
 	JButton delButton;
+	JButton shareButton;
 	
 	
 	JLabel peopleLabel;
@@ -47,11 +49,14 @@ public class ToDoCell extends JPanel implements ActionListener{
 		priorityLabel = new JLabel("-1");
 		titleLabel = new JLabel("NULL TITLE");
 		dateLabel = new JLabel("NULL DATE");
-		editButton = new JButton("EDIT");
-		delButton = new JButton("DEL");
 		moreButton = new JButton("¡å");
 		peopleLabel = new JLabel("NULL PEOPLE");
 		memoLabel = new JLabel("memo");
+		
+		editButton = new JButton();
+		delButton = new JButton();
+		shareButton = new JButton();
+		
 	}
 
 	public void arrangeCell(){
@@ -70,10 +75,31 @@ public class ToDoCell extends JPanel implements ActionListener{
 		belowPanel.setPreferredSize(new Dimension(MainFrame.FRAME_WIDTH, CELL_OPEN_HEIGHT - CELL_HEIGHT));
 
 		JPanel modifyPanel = new JPanel();
-		modifyPanel.setLayout(new GridLayout(3, 1));
-		modifyPanel.add(editButton);
-		modifyPanel.add(delButton);
+		modifyPanel.setLayout(new GridLayout(2, 1));
+		
+		JPanel buttonPanel  = new JPanel();
+		buttonPanel.add(editButton);
+		buttonPanel.add(delButton);
+		buttonPanel.add(shareButton);
+		
+		modifyPanel.add(buttonPanel);
 		modifyPanel.add(moreButton);
+		// button setting
+		editButton.setOpaque(false);
+		editButton.setBorder(null);
+		editButton.setBackground(new Color(0,0,0,0));
+		editButton.setIcon(page.mainFrame.resourceManager.getIcon(ResourceManager.ICON_CELL_EDIT));
+		
+		delButton.setOpaque(false);
+		delButton.setBorder(null);
+		delButton.setBackground(new Color(0,0,0,0));
+		delButton.setIcon(page.mainFrame.resourceManager.getIcon(ResourceManager.ICON_CELL_DELETE));
+		
+		shareButton.setOpaque(false);
+		shareButton.setBorder(null);
+		shareButton.setBackground(new Color(0,0,0,0));
+		shareButton.setIcon(page.mainFrame.resourceManager.getIcon(ResourceManager.ICON_CELL_SHARE));
+		// button setting
 		
 		BorderLayout bLayout = new BorderLayout();
 		bLayout.setHgap(0);
@@ -87,6 +113,7 @@ public class ToDoCell extends JPanel implements ActionListener{
 		this.add(abovePanel);
 
 		this.setPreferredSize(new Dimension(MainFrame.FRAME_WIDTH, CELL_HEIGHT));
+		// Register Action Listener
 		if (moreButton.getActionListeners() == null || moreButton.getActionListeners().length == 0){
 			moreButton.addActionListener(this);
 		}
@@ -96,6 +123,9 @@ public class ToDoCell extends JPanel implements ActionListener{
 		if (delButton.getActionListeners() == null || delButton.getActionListeners().length == 0){
 			delButton.addActionListener(this);
 		}
+		if (shareButton.getActionListeners() == null || shareButton.getActionListeners().length == 0){
+			shareButton.addActionListener(this);
+		}
 	}
 
 
@@ -103,6 +133,7 @@ public class ToDoCell extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == moreButton){
 			if (isFlipped){
+				this.moreButton.setText("¡ã");
 				this.setPreferredSize(new Dimension(MainFrame.FRAME_WIDTH, CELL_OPEN_HEIGHT));
 				this.setLayout(new GridLayout(2, 1));
 				this.add(belowPanel);
@@ -111,6 +142,7 @@ public class ToDoCell extends JPanel implements ActionListener{
 				Log.info(this.getClass(), "open!");
 			}
 			else{
+				this.moreButton.setText("¡å");
 				this.setLayout(new GridLayout(1, 1));
 				this.remove(belowPanel);
 				this.setPreferredSize(new Dimension(MainFrame.FRAME_WIDTH, CELL_HEIGHT));
@@ -127,6 +159,9 @@ public class ToDoCell extends JPanel implements ActionListener{
 		else if (e.getSource() == delButton){
 			System.out.println("DELETE");
 			page.controller.removeToDo(this, todo);
+		}
+		else if (e.getSource() == shareButton){
+			System.out.println("SHARE");
 		}
 		
 	}
