@@ -24,6 +24,7 @@ public class UIBridge {
 	public ServerBridge serverBridge;
 
 	public String userId = null;
+	public int userKey = -1;
 	
 	public UIBridge(){
 		todoManager = new ToDoManager();
@@ -87,10 +88,12 @@ public class UIBridge {
 	public void responseLogin(LinkedHashMap<String, String> data){
 		String result = data.get(ServerConstants.KEY_LOGIN_RESULT);
 		String id = data.get(ServerConstants.KEY_LOGIN_ID);
+		String key = data.get(ServerConstants.KEY_LOGIN_KEY);
 		if (result.equals("777")){
 			Log.info(this.getClass(), id + "로 로그인 성공");
 			MsgBox.show("Success", id + "님 환영합니다");
 			userId = id;
+			userKey = Integer.parseInt(key);
 			mainFrame.successLogin();
 		}
 		else {
