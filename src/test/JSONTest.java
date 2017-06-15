@@ -3,7 +3,6 @@ package test;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -26,7 +25,7 @@ public class JSONTest {
 				JSONObject todo = iterator.next();
 				System.out.println(todo.get("title"));
 				System.out.println(todo.get("people"));
-				ArrayList<String> people = new ArrayList<>();
+				//ArrayList<String> people = new ArrayList<>();
 				
 				Iterator<JSONObject> pi = ((JSONArray) todo.get("people")).iterator();
 				while (pi.hasNext()){

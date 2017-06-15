@@ -32,7 +32,9 @@ public class HomePage extends Page{
 	/** 버튼이 그려지는 Panel */
 	public JPanel tabPart;
 	public JButton addButton;
-	public JButton deleteButton;
+	public JButton uploadButton;
+	public JButton downloadButton;
+	public JButton saveButton;
 
 	public HomePage(MainFrame mainFrame, String name, ImageIcon icon) {
 		super(mainFrame, name, icon);
@@ -50,15 +52,26 @@ public class HomePage extends Page{
 		cellScroller.setViewportView(cellPart);
 
 		tabPart = new JPanel();
-		addButton = new JButton("ADD");
-		addButton.setName("ADD");
+		addButton = new JButton("Add");
+		addButton.setName("Add");
 		addButton.addActionListener(controller);
-		deleteButton = new JButton("DEL");
-		deleteButton.setName("DEL");
-		deleteButton.addActionListener(controller);
+		
+		uploadButton = new JButton("Upload");
+		uploadButton.setName("Upload");
+		uploadButton.addActionListener(controller);
+		
+		downloadButton = new JButton("Download");
+		downloadButton.setName("Download");
+		downloadButton.addActionListener(controller);
+		
+		saveButton = new JButton("Save");
+		saveButton.setName("Save");
+		saveButton.addActionListener(controller);
+		
 		tabPart.add(addButton);
-		tabPart.add(deleteButton);
-
+		tabPart.add(uploadButton);
+		tabPart.add(downloadButton);
+		tabPart.add(saveButton);
 		this.add(cellScroller, BorderLayout.CENTER);
 		this.add(tabPart, BorderLayout.SOUTH);
 	}

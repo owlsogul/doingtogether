@@ -60,7 +60,22 @@ public class HomePageController extends PageController implements ActionListener
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		showEditFrame(null);
+		if (e.getSource() instanceof JButton){
+			JButton button = (JButton) e.getSource();
+			if (button.getName().equalsIgnoreCase("Add")){
+				showEditFrame(null);		
+			}
+			else if (button.getName().equalsIgnoreCase("Upload")){
+				page.mainFrame.uiBridge.requestUpload();
+			}
+			else if (button.getName().equalsIgnoreCase("download")) {
+				page.mainFrame.uiBridge.requestDownload();
+			}
+			else if (button.getName().equalsIgnoreCase("save")){
+				page.mainFrame.uiBridge.saveDataToLocal();
+				
+			}
+		}
 	}
 	
 	public void showEditFrame(ToDo todo){

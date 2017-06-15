@@ -9,6 +9,7 @@ import kr.ac.cau.jomingyu.doingtogether.server.ServerBridge;
 import kr.ac.cau.jomingyu.doingtogether.server.ServerConstants;
 import kr.ac.cau.jomingyu.doingtogether.todo.ToDoDriver;
 import kr.ac.cau.jomingyu.doingtogether.todo.ToDoManager;
+import kr.ac.cau.jomingyu.doingtogether.ui.page.HomePage;
 import kr.ac.cau.jomingyu.doingtogether.utility.JSONUtil;
 import kr.ac.cau.jomingyu.doingtogether.utility.Log;
 import kr.ac.cau.jomingyu.doingtogether.utility.MsgBox;
@@ -96,6 +97,53 @@ public class UIBridge {
 			MsgBox.show("Error", "로그인에 실패하였습니다");
 		}
 	}
+	
+	public void requestUpload(){
+		LinkedHashMap<String, String> data = new LinkedHashMap<>();
+		data.put(ServerConstants.KEY_DATATYPE, ServerConstants.KEY_UPLOAD);
+		data.put(ServerConstants.KEY_UPLOAD_ID, userId);
+		data.put(ServerConstants.KEY_UPLOAD_CONTENT, todoDriver.todoToString(todoManager));
+		String send = JSONUtil.translateMapToJson(data);
+		serverBridge.sendRawData(send);
+		Log.info(this.getClass(), "Client send upload data " + send);
+	}
+	
+	public void responseUpload(LinkedHashMap<String, String> data){
+		String result = data.get(ServerConstants.KEY_DOWNLOAD_RESULT);
+		if (result.equals("777")){
+			MsgBox.show("Success", "업로드가 완료되었습니다.");
+		}
+		else {
+			MsgBox.show("Error", "업로드에 실패하였습니다.");
+		}
+	}
+	
+	public void requestDownload(){
+		
+		LinkedHashMap<String, String> data = new LinkedHashMap<>();
+		data.put(ServerConstants.KEY_DATATYPE, ServerConstants.KEY_DOWNLOAD);
+		data.put(ServerConstants.KEY_DOWNLOAD_ID, userId);
+		
+		String send = JSONUtil.translateMapToJson(data);
+		serverBridge.sendRawData(send);
+		Log.info(this.getClass(), "Client send download data "+ send);
+		
+	}
+	
+	public void responseDownload(LinkedHashMap<String, String> data){
+		
+		String result = data.get(ServerConstants.KEY_DOWNLOAD_RESULT);
+		if (result.equals("400")){
+			MsgBox.show("Error", "데이터 다운로드에 실패했습니다.");
+			return;
+		}
+		MsgBox.show("Success", "데이터 다운로드에 성공했습니다.");
+		String content = data.get(ServerConstants.KEY_DOWNLOAD_CONTENT);
+		todoDriver.stringToToDo(todoManager, content);
+		HomePage homePage = (HomePage) mainFrame.pageManager.getHomePage();
+		homePage.controller.loadCellList();
+		homePage.updateAllCell();
+	}
 
 
 
@@ -105,6 +153,9 @@ public class UIBridge {
 		todoDriver.loadDataFromLocal(todoManager);
 	}
 
+	public void saveDataToLocal(){
+		todoDriver.saveDataToLocal(todoManager);
+	}
 
 
 
