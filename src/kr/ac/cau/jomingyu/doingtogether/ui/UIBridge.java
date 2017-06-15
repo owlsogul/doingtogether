@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import kr.ac.cau.jomingyu.doingtogether.DoingTogetherProgram;
 import kr.ac.cau.jomingyu.doingtogether.server.ServerBridge;
 import kr.ac.cau.jomingyu.doingtogether.server.ServerConstants;
+import kr.ac.cau.jomingyu.doingtogether.todo.ToDo;
 import kr.ac.cau.jomingyu.doingtogether.todo.ToDoDriver;
 import kr.ac.cau.jomingyu.doingtogether.todo.ToDoManager;
 import kr.ac.cau.jomingyu.doingtogether.ui.page.HomePage;
@@ -145,9 +146,45 @@ public class UIBridge {
 		todoDriver.stringToToDo(todoManager, content);
 		HomePage homePage = (HomePage) mainFrame.pageManager.getHomePage();
 		homePage.controller.loadCellList();
-		homePage.updateAllCell();
+		homePage.recreateCellPart();
 	}
 
+	public void requestShare(ToDo todo){
+		LinkedHashMap<String, String> map = new LinkedHashMap<>();
+		map.put(ServerConstants.KEY_DATATYPE, ServerConstants.KEY_SHARE);
+		map.put(ServerConstants.KEY_SHARE_WRITER_KEY, String.valueOf(userKey));
+		map.put(ServerConstants.KEY_SHARE_WRITER_ID, userId);
+		map.put(ServerConstants.KEY_SHARE_WRITE_TIME, String.valueOf(todo.writeTime));
+		map.put(ServerConstants.KEY_SHARE_TITLE, todo.title);
+		map.put(ServerConstants.KEY_SHARE_PRIORITY, String.valueOf(todo.priority));
+		String people = "";
+		for (int i = 0; i < todo.people.length; i++){
+			people += todo.people[i];
+			if (i != todo.people.length-1){
+				people += ":";
+			}
+		}
+		map.put(ServerConstants.KEY_SHARE_PEOPLE, people);
+		map.put(ServerConstants.KEY_SHARE_DUEDATE, String.valueOf(todo.dueTime));
+		map.put(ServerConstants.KEY_SHARE_MEMO, todo.memo);
+		map.put(ServerConstants.KEY_SHARE_IMAGES, "");
+		
+		String send = JSONUtil.translateMapToJson(map);
+		serverBridge.sendRawData(send);
+		Log.info(this.getClass(), "Client send share data "+ send);
+		
+	}
+	
+	public void responseShare(LinkedHashMap<String, String> data){
+		
+		String result = data.get(ServerConstants.KEY_SHARE_RESULT);
+		if (result.equals("400")){
+			MsgBox.warning("공유하기가 실패하였습니다.");
+			return;
+		}
+		MsgBox.show("Success", "공유하기를 성공하였습니다.");
+		return;
+	}
 
 
 

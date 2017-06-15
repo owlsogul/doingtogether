@@ -80,17 +80,16 @@ public class HomePage extends Page{
 	int realTableHeight = 482;
 	//
 	
-	public void updateAllCell(){
+	public void repaintAllCell(){
 		for (ToDoCell cell : cellList){
+			// redefine componets in cell
 			cell.setTodo(cell.getTodo());
+			// repaint cell
+			cell.repaint();
 		}
-		updateCellPart();
-		this.revalidate();
-		this.repaint();
 	}
-
-	public void updateCellPart(){
-
+	
+	public void recreateCellPart(){
 		//setSize 와 setPreferredSize 의 차이는 무엇인가...ㅠㅠ 한번에 해결해버리네..ㅠ
 		cellPart.removeAll();
 		int height = cellList.size() * ToDoCell.CELL_HEIGHT;
@@ -111,6 +110,8 @@ public class HomePage extends Page{
 			cellPart.add(voidPanel);
 			System.out.println(voidPanel.getSize());
 		}
+		this.revalidate();
+		this.repaint();
 	}
 
 	public void clearCellList(){

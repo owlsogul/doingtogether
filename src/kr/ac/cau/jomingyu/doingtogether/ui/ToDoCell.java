@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import kr.ac.cau.jomingyu.doingtogether.todo.ToDo;
 import kr.ac.cau.jomingyu.doingtogether.ui.page.HomePage;
 import kr.ac.cau.jomingyu.doingtogether.utility.Log;
+import kr.ac.cau.jomingyu.doingtogether.utility.MsgBox;
 
 public class ToDoCell extends JPanel implements ActionListener{
 	public static final int CELL_HEIGHT = 50;
@@ -114,6 +115,10 @@ public class ToDoCell extends JPanel implements ActionListener{
 
 		this.setPreferredSize(new Dimension(MainFrame.FRAME_WIDTH, CELL_HEIGHT));
 		// Register Action Listener
+		if (statusButton.getActionListeners() == null || statusButton.getActionListeners().length == 0){
+			statusButton.addActionListener(this);
+		}
+		
 		if (moreButton.getActionListeners() == null || moreButton.getActionListeners().length == 0){
 			moreButton.addActionListener(this);
 		}
@@ -162,6 +167,14 @@ public class ToDoCell extends JPanel implements ActionListener{
 		}
 		else if (e.getSource() == shareButton){
 			System.out.println("SHARE");
+			page.mainFrame.uiBridge.requestShare(todo);
+		}
+		else if (e.getSource() == statusButton){
+			System.out.println("STATUS");
+			page.mainFrame.uiBridge.todoManager.changeToDoToReview(todo);
+			page.controller.loadCellList();
+			page.recreateCellPart();
+			MsgBox.show("Success", todo.title + " 이 완료되었습니다");
 		}
 		
 	}

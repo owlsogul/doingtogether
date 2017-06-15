@@ -47,7 +47,7 @@ public class HomePageController extends PageController implements ActionListener
 		for (ToDo todo : todoList){
 			page.addCell(todo);
 		}
-		page.updateCellPart();
+		page.recreateCellPart();
 	}
 	
 	@Override
@@ -85,7 +85,7 @@ public class HomePageController extends PageController implements ActionListener
 	public void removeToDo(ToDoCell toDoCell, ToDo todo) {
 		page.mainFrame.uiBridge.todoManager.removeToDo(todo);
 		page.cellList.remove(toDoCell);
-		page.updateCellPart();
+		page.recreateCellPart();
 	}
 	
 	public void addToDo(ToDo todo){
@@ -151,16 +151,17 @@ class EditFrame extends JFrame implements ActionListener, ChangeListener{
 		prioritySlider = new JSlider(JSlider.HORIZONTAL, 0, 10, 5);
 		prioritySlider.addChangeListener(this);
 		scoreLabel = new JLabel(String.valueOf(prioritySlider.getValue()));
+		scoreLabel.setHorizontalAlignment(JLabel.CENTER);
 		JPanel duePanel = new JPanel();
 		GridLayout g = new GridLayout(1, 5);
 		g.setVgap(1);
 		g.setHgap(1);
 		duePanel.setLayout(g);
-		yearField = new PlaceHolderTextField("YYYY");
-		monField = new PlaceHolderTextField("MM");
-		dayField = new PlaceHolderTextField("DD");
-		hourField = new PlaceHolderTextField("HH");
-		minField = new PlaceHolderTextField("MM");
+		yearField = new PlaceHolderTextField(4,"YYYY");
+		monField = new PlaceHolderTextField(2,"MM");
+		dayField = new PlaceHolderTextField(2,"DD");
+		hourField = new PlaceHolderTextField(2,"HH");
+		minField = new PlaceHolderTextField(2,"MM");
 		duePanel.add(yearField);
 		duePanel.add(new JLabel("-"));
 		duePanel.add(monField);
@@ -271,8 +272,8 @@ class EditFrame extends JFrame implements ActionListener, ChangeListener{
 			todo.memo = memo;
 			
 		}
-		
-		this.con.page.updateAllCell();
+		this.con.page.recreateCellPart();
+		this.con.page.repaintAllCell();
 		this.dispose();
 	}
 

@@ -56,6 +56,9 @@ public class ServerBridge implements Runnable{
 		else if (dataType.equalsIgnoreCase(ServerConstants.KEY_DOWNLOAD)){
 			uiBridge.responseDownload(map);
 		}
+		else if (dataType.equalsIgnoreCase(ServerConstants.KEY_SHARE)){
+			uiBridge.responseShare(map);
+		}
 	}
 	
 	

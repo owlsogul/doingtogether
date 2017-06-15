@@ -7,8 +7,10 @@ import kr.ac.cau.jomingyu.doingtogether.utility.Log;
 public class ToDoManager {
 
 	public ArrayList<ToDo> todoList;
+	public ArrayList<Review> reviewList;
 	public ToDoManager(){
 		todoList = new ArrayList<>();
+		reviewList = new ArrayList<>();
 	}
 	
 	public void addToDo(String title, int priority, long dueTime, long writeTime, String memo){
@@ -30,6 +32,12 @@ public class ToDoManager {
 		else{
 			Log.info(this.getClass(), "NOT-EXIST TODO");
 		}
+	}
+	
+	public void changeToDoToReview(ToDo todo){
+		removeToDo(todo);
+		Review review = new Review(todo);
+		reviewList.add(review);
 	}
 	
 	
