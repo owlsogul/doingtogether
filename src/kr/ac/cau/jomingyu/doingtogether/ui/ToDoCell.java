@@ -71,6 +71,7 @@ public class ToDoCell extends JPanel implements ActionListener{
 		aboveDataPanel.add(dateLabel);
 
 		belowPanel = new JPanel();
+		belowPanel.setLayout(new GridLayout(2, 1));
 		belowPanel.add(peopleLabel);
 		belowPanel.add(memoLabel);
 		belowPanel.setPreferredSize(new Dimension(MainFrame.FRAME_WIDTH, CELL_OPEN_HEIGHT - CELL_HEIGHT));

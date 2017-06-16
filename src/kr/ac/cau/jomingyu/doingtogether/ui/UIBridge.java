@@ -3,6 +3,9 @@ package kr.ac.cau.jomingyu.doingtogether.ui;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+
+import org.json.simple.JSONObject;
 
 import kr.ac.cau.jomingyu.doingtogether.DoingTogetherProgram;
 import kr.ac.cau.jomingyu.doingtogether.server.ServerBridge;
@@ -10,7 +13,9 @@ import kr.ac.cau.jomingyu.doingtogether.server.ServerConstants;
 import kr.ac.cau.jomingyu.doingtogether.todo.ToDo;
 import kr.ac.cau.jomingyu.doingtogether.todo.ToDoDriver;
 import kr.ac.cau.jomingyu.doingtogether.todo.ToDoManager;
+import kr.ac.cau.jomingyu.doingtogether.ui.controller.Content;
 import kr.ac.cau.jomingyu.doingtogether.ui.page.HomePage;
+import kr.ac.cau.jomingyu.doingtogether.ui.page.TimeLinePage;
 import kr.ac.cau.jomingyu.doingtogether.utility.JSONUtil;
 import kr.ac.cau.jomingyu.doingtogether.utility.Log;
 import kr.ac.cau.jomingyu.doingtogether.utility.MsgBox;
@@ -186,6 +191,50 @@ public class UIBridge {
 		return;
 	}
 
+	public void requestTimeline(){
+		LinkedHashMap<String, String> map = new LinkedHashMap<>();
+		map.put(ServerConstants.KEY_DATATYPE, ServerConstants.KEY_TIMELINE);
+		String send = JSONUtil.translateMapToJson(map);
+		serverBridge.sendRawData(send);
+		Log.info(this.getClass(), "Client send timeline data "+ send);
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void responseTimeline(LinkedHashMap<String, String> data){
+		
+		Log.info(this.getClass(), "client receive timeline data " + JSONUtil.translateMapToJson(data));
+		
+		String result = data.get(ServerConstants.KEY_TIMELINE_RESULT);
+		if (result.equals("400")){
+			MsgBox.warning("타임라인 데이터를 가져오는 것에 실패하였습니다.");
+			return;
+		}
+
+		// init contents list
+		TimeLinePage page = (TimeLinePage) mainFrame.pageManager.getTimelinePage();
+		page.controller.clearContents();
+		
+		// set contents list
+		JSONObject jObj = new JSONObject(data);
+		LinkedList jArr = (LinkedList) jObj.get(ServerConstants.KEY_TIMELINE_CONTENTS);
+		for (Object obj : jArr){
+			LinkedHashMap<String, String> content = (LinkedHashMap<String, String>) obj;
+			/*String writer = content.get(ServerConstants.KEY_TIMELINE_WRITER_ID);
+			String writetime = content.get(ServerConstants.KEY_TIMElINE_WRITE_TIME);
+			String title = content.get(ServerConstants.KEY_TIMELINE_TITLE);
+			String priority = content.get(ServerConstants.KEY_TIMELINE_PRIORITY);
+			String people = content.get(ServerConstants.KEY_TIMELINE_PEOPLE);
+			String dueDate = content.get(ServerConstants.KEY_TIMELINE_DUE_DATE);
+			String memo = content.get(ServerConstants.KEY_TIMELINE_MEMO);*/
+			page.controller.addContent(Content.createFromHashMap(content));
+		}
+		
+		// reload content page
+		page.controller.loadContent();
+		MsgBox.show("Success", "타임라인 로딩을 성공하였습니다.");
+		return;
+	}
+	
 
 
 	public void loadDataFromLocal(){

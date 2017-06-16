@@ -59,6 +59,9 @@ public class ServerBridge implements Runnable{
 		else if (dataType.equalsIgnoreCase(ServerConstants.KEY_SHARE)){
 			uiBridge.responseShare(map);
 		}
+		else if (dataType.equalsIgnoreCase(ServerConstants.KEY_TIMELINE)){
+			uiBridge.responseTimeline(map);
+		}
 	}
 	
 	
